@@ -1,0 +1,2 @@
+# genalg
+Genetic Algorithm fiddles
