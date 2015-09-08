@@ -81,6 +81,8 @@ def fitness (s):
 		fit = 2**63-1
 	except OverflowError:
 		fit = 0.0
+	except TypeError:
+		return [expr, result, 0.0]
 
 	return [expr, result, fit]
 
