@@ -1,0 +1,25 @@
+# Lessons Learned
+
+I've gone through the _Genetic Algorithms in Plain English_ tutorial at <http://www.ai-junkie.com/ga/intro/gat1.htnl>. I've decided this was a good opportunity to start learning Python, so that's what I picked to code the example in. See the _genalg.py_ file.
+
+In short, the challenge is to write a program that takes an integer for input (the target, say 42), and then employs genetic algorithms to find an arithmetic expression for it (eg. 6 \* 7, 45-3 or 80/2+2).
+
+Question: When does an approach like this make sense? Clearly 42 isn't the answer, so the expression is. Considering the amount of crappy answers I've seen produced while letting the program run (it generates expressions randomly), the approach seems to fit only a certain set of problems. Which are they?
+
+A bit of a brain dump after hours of toying:
+
+A smaller chromosome length (4 as opposed to 9) makes for a much shorter run. This makes sense, since the amount of possible combinations is a **lot** smaller, so you generate a lot less crap.
+
+Python's Eval sometimes seems to get stuck; some generated expressions are computationally heavy, like 12342\*\*345678. I might consider filtering these out *before* submitting them to the Eval function.
+
+The tutorial didn't mention this, but I decided to build in a switch, **crossoverAnywhere**, which when False, forces crossovers to happen only on gene boundaries. This makes for more readable mutations. I still need to investigate if this has any effect on the effectiveness of "breeding" though.
+
+I would not have thought that picking a larger integer, like 1234567, would be so much more difficult to find an expression for. I frequently hit the maximum number of generations (200 most of the time).
+
+target		result		generations		winning expression		fitness
+1234567		1234571		200				8642000/7				0.25
+1234567		1236000		200				6180004/5				0.00
+1234567		1000095		200				999996+99				0.00
+1234567		1234570		200				4938282/4				0.33
+
+	generations: 118, 200, 
