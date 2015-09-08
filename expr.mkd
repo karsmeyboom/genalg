@@ -1,6 +1,6 @@
 # Lessons Learned
 
-I've gone through the _Genetic Algorithms in Plain English_ tutorial at <http://www.ai-junkie.com/ga/intro/gat1.htnl>. I've decided this was a good opportunity to start learning Python, so that's what I picked to code the example in. See the _genalg.py_ file.
+I've gone through the _Genetic Algorithms in Plain English_ tutorial at <http://www.ai-junkie.com/ga/intro/gat1.html>. I've decided this was a good opportunity to start learning Python, so that's what I picked to code the example in. See the _genalg.py_ file.
 
 In short, the challenge is to write a program that takes an integer for input (the target, say 42), and then employs genetic algorithms to find an arithmetic expression for it (eg. 6 \* 7, 45-3 or 80/2+2).
 
