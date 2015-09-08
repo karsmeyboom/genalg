@@ -16,6 +16,8 @@ The tutorial didn't mention this, but I decided to build in a switch, **crossove
 
 I would not have thought that picking a larger integer, like 1234567, would be so much more difficult to find an expression for. I frequently hit the maximum number of generations (200 most of the time).
 
+Addendum 2015-09-08: Next step is to move the different parameters (gene length, chromosome length) to a configuration file so I can set up a bunch of automated tests. I'm curious how different combinations of settings behave. I want to collect the results in a database (sqlite, probably) so I can do some statistics on them.
+
 target		result		generations		winning expression		fitness
 1234567		1234571		200				8642000/7				0.25
 1234567		1236000		200				6180004/5				0.00
