@@ -4,21 +4,40 @@ from random import randint
 from random import uniform
 from random import random
 from sys import maxsize
+import argparse
 
-alphabet = '0123456789+-/*()  +-/*().f\\x                '
-target = 1234567
+parser = argparse.ArgumentParser(description='Description')
+parser.add_argument('--target', '-t', nargs=1, default=[4001])
+parser.add_argument('--alphabet', '-a', nargs=1, default=['0123456789+-/*()  +-/*().f\\x                '])
+parser.add_argument('--world-size', '-w', nargs=1, default=[100])
+parser.add_argument('--startover-with', '-s', nargs=1, default=[10])
+parser.add_argument('--max-generations', '-n', nargs=1, default=[200])
+parser.add_argument('--chromosome-length', '-c', nargs=1, default=[9])
+parser.add_argument('--gene-length', '-g', nargs=1, default=[4])
+parser.add_argument('--num-fittest', '-f', nargs=1, default=[10])
+parser.add_argument('--crossover-anywhere', '-x', nargs=1, default=[False])
+parser.add_argument('--crossover-rate', '-r', nargs=1, default=[0.25])
+parser.add_argument('--mutation-rate', '-m', nargs=1, default=[0.05])
+parser.add_argument('--epsilon', '-e', nargs=1, default=[0.0001])
+parser.add_argument('--max-history', '-H', nargs=1, default=[5])
+parser.add_argument('--logfile', '-l', nargs=1, default=['args.log'])
 
-world_size = 100
-startNewWorldWith = 10
-chromosome_length = 9
-gene_length = 4
-numFittest = 10
-crossoverAnywhere = False
-pCrossover = 0.25
-pMutation = 0.05
-maxGenerations = 200
-maxHistory = 5
-epsilon = 0.0001
+args = parser.parse_args()
+
+target = int(args.target[0])
+alphabet = args.alphabet[0]
+world_size = int(args.world_size[0])
+startNewWorldWith = int(args.startover_with[0])
+chromosome_length = int(args.chromosome_length[0])
+gene_length = int(args.gene_length[0])
+numFittest = int(args.num_fittest[0])
+crossoverAnywhere = bool(args.crossover_anywhere[0])
+pCrossover = float(args.crossover_rate[0])
+pMutation = float(args.mutation_rate[0])
+maxGenerations = int(args.max_generations[0])
+maxHistory = int(args.max_history[0])
+epsilon = float(args.epsilon[0])
+logfile = args.logfile[0]
 
 generation = 0
 
@@ -256,7 +275,7 @@ sOut += str(pMutation)+"\t"
 sOut += str(maxGenerations)+"\t"
 sOut += alphabet+"\n"
 
-fo = open("genalg.log", "a")
+fo = open(logfile, "a")
 fo.write(sOut)
 fo.close()
 
