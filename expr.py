@@ -5,6 +5,7 @@ from random import uniform
 from random import random
 from sys import maxsize
 from optparse import OptionParser
+import sqlite3 as lite
 
 parser = OptionParser()
 parser.add_option('--target',				'-t', dest='target',			default=4001)
@@ -21,7 +22,7 @@ parser.add_option('--mutation-rate',		'-m', dest='pMutation',			default=0.05)
 parser.add_option('--epsilon',				'-e', dest='epsilon',			default=0.0001)
 parser.add_option('--max-history',			'-H', dest='maxHistory',		default=5)
 parser.add_option('--logfile',				'-l', dest='logfile',			default='out.log')
-
+parser.add_option('--sqlite-db',			'-d', dest='sqlite_db',			default='results.db')
 (options, args) = parser.parse_args()
 
 target				= int(options.target)
@@ -38,6 +39,7 @@ maxGenerations		= int(options.maxGenerations)
 maxHistory			= int(options.maxHistory)
 epsilon				= float(options.epsilon)
 logfile				= options.logfile
+sqlite_db			= options.sqlite_db
 
 generation = 0
 
@@ -278,4 +280,11 @@ sOut += alphabet+"\n"
 fo = open(logfile, "a")
 fo.write(sOut)
 fo.close()
+
+conn = lite.connect(sqlite_db)
+with conn:
+	cur = conn.cursor()
+	cur.execute('CREATE TABLE results ( entry_date TEXT, target INTEGER, result INTEGER, generation INTEGER, expr TEXT, fitness REAL, bits TEXT, world_size INTEGER, startover_with INTEGER, chromosome_length INTEGER, gene_length INTEGER, num_fittest INTEGER, xover_anywhere INTEGER, p_xover REAL, p_mutation REAL, max_generations INTEGER,alphabet TEXT )')
+	cur.execute('INSERT INTO results VALUES (DATETIME(), {target}, {result}, {generation}, \'{expr}\', {fitness}, {bits}, {world_size}, {startover_with}, {chromosome_length}, {gene_length}, {num_fittest}, {xover_anywhere}, {p_crossover}, {p_mutation}, {max_generations}, \'{alphabet}\')'.format(target=target, result=result, generation=generation, expr=expr, fitness=fitness, bits=bits, world_size=world_size, startover_with=startNewWorldWith, chromosome_length=chromosome_length, gene_length=gene_length, num_fittest=numFittest, xover_anywhere=0 if crossoverAnywhere == False else 1, p_crossover=pCrossover, p_mutation=pMutation, max_generations=maxGenerations, alphabet=alphabet))
+
 
