@@ -4,40 +4,40 @@ from random import randint
 from random import uniform
 from random import random
 from sys import maxsize
-import argparse
+from optparse import OptionParser
 
-parser = argparse.ArgumentParser(description='Description')
-parser.add_argument('--target', '-t', nargs=1, default=[4001])
-parser.add_argument('--alphabet', '-a', nargs=1, default=['0123456789+-/*()  +-/*().f\\x                '])
-parser.add_argument('--world-size', '-w', nargs=1, default=[100])
-parser.add_argument('--startover-with', '-s', nargs=1, default=[10])
-parser.add_argument('--max-generations', '-n', nargs=1, default=[200])
-parser.add_argument('--chromosome-length', '-c', nargs=1, default=[9])
-parser.add_argument('--gene-length', '-g', nargs=1, default=[4])
-parser.add_argument('--num-fittest', '-f', nargs=1, default=[10])
-parser.add_argument('--crossover-anywhere', '-x', nargs=1, default=[False])
-parser.add_argument('--crossover-rate', '-r', nargs=1, default=[0.25])
-parser.add_argument('--mutation-rate', '-m', nargs=1, default=[0.05])
-parser.add_argument('--epsilon', '-e', nargs=1, default=[0.0001])
-parser.add_argument('--max-history', '-H', nargs=1, default=[5])
-parser.add_argument('--logfile', '-l', nargs=1, default=['args.log'])
+parser = OptionParser()
+parser.add_option('--target',				'-t', dest='target',			default=4001)
+parser.add_option('--alphabet',				'-a', dest='alphabet',			default='0123456789+-/*()  +-/*().f\\x                ')
+parser.add_option('--world-size',			'-w', dest='world_size',		default=100)
+parser.add_option('--startover-with',		'-s', dest='startNewWorldWith', default=10)
+parser.add_option('--max-generations',		'-n', dest='maxGenerations',	default=200)
+parser.add_option('--chromosome-length',	'-c', dest='chromosome_length', default=9)
+parser.add_option('--gene-length',			'-g', dest='gene_length',		default=4)
+parser.add_option('--num-fittest',			'-f', dest='numFittest',		default=10)
+parser.add_option('--crossover-anywhere',	'-x', dest='crossoverAnywhere', default=False)
+parser.add_option('--crossover-rate',		'-r', dest='pCrossover',		default=0.25)
+parser.add_option('--mutation-rate',		'-m', dest='pMutation',			default=0.05)
+parser.add_option('--epsilon',				'-e', dest='epsilon',			default=0.0001)
+parser.add_option('--max-history',			'-H', dest='maxHistory',		default=5)
+parser.add_option('--logfile',				'-l', dest='logfile',			default='out.log')
 
-args = parser.parse_args()
+(options, args) = parser.parse_args()
 
-target = int(args.target[0])
-alphabet = args.alphabet[0]
-world_size = int(args.world_size[0])
-startNewWorldWith = int(args.startover_with[0])
-chromosome_length = int(args.chromosome_length[0])
-gene_length = int(args.gene_length[0])
-numFittest = int(args.num_fittest[0])
-crossoverAnywhere = bool(args.crossover_anywhere[0])
-pCrossover = float(args.crossover_rate[0])
-pMutation = float(args.mutation_rate[0])
-maxGenerations = int(args.max_generations[0])
-maxHistory = int(args.max_history[0])
-epsilon = float(args.epsilon[0])
-logfile = args.logfile[0]
+target				= int(options.target)
+alphabet			= options.alphabet
+world_size			= int(options.world_size)
+startNewWorldWith	= int(options.startNewWorldWith)
+chromosome_length	= int(options.chromosome_length)
+gene_length			= int(options.gene_length)
+numFittest			= int(options.numFittest)
+crossoverAnywhere	= bool(options.crossoverAnywhere)
+pCrossover			= float(options.pCrossover)
+pMutation			= float(options.pMutation)
+maxGenerations		= int(options.maxGenerations)
+maxHistory			= int(options.maxHistory)
+epsilon				= float(options.epsilon)
+logfile				= options.logfile
 
 generation = 0
 
